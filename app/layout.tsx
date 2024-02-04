@@ -16,7 +16,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className + " bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#0085FF] to-[#003465]"
+    }>{children}</body>
     </html>
   );
 }
