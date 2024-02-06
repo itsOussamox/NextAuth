@@ -12,7 +12,22 @@ import { useEffect, useState, useTransition } from "react";
 import { login, register } from "@/actions/login";
 import { Progress } from "../ui/progress";
 import { FormError, FormSuccess } from "./LoginState";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
+
+function RegisterButton({isPending} : {isPending : boolean}){
+    if (isPending){
+        return (
+            <Button disabled type="submit" variant="default"
+            className="flex items-center justify-center w-full">
+                <ReloadIcon className="h-full w-full animate-spin"/>
+            </Button>
+        )
+    }
+    return (
+        <Button className="w-full" type="submit" variant="default">Register</Button>
+    )
+}
 
 export default function RegisterForm() {
     const [isPending, startTransition] = useTransition();
@@ -47,7 +62,7 @@ export default function RegisterForm() {
                             <FormItem>
                                 <FormLabel>Username</FormLabel>
                                 <FormControl>
-                                    <Input className="bg-white text-black" {...field} type="name" placeholder="Leehwak"/>
+                                    <Input disabled={isPending} className="bg-white text-black" {...field} type="name" placeholder="Leehwak"/>
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>
@@ -60,7 +75,7 @@ export default function RegisterForm() {
                             <FormItem>
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
-                                    <Input className="bg-white text-black" {...field} type="email" placeholder="Lee.Hwak@gmail.com"/>
+                                    <Input disabled={isPending} className="bg-white text-black" {...field} type="email" placeholder="Lee.Hwak@gmail.com"/>
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>
@@ -73,7 +88,7 @@ export default function RegisterForm() {
                             <FormItem>
                                 <FormLabel>Password</FormLabel>
                                 <FormControl>
-                                    <Input className="bg-white text-black" {...field} type="password" placeholder="**************"/>
+                                    <Input disabled={isPending} className="bg-white text-black" {...field} type="password" placeholder="**************"/>
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>
@@ -82,7 +97,7 @@ export default function RegisterForm() {
                 </div>
                 <FormError message={formError}/>
                 <FormSuccess message={formSuccess}/>
-                <Button type="submit" variant="default">Regster</Button>
+                <RegisterButton isPending={isPending} />
             </form>
         </Form>
         </>
